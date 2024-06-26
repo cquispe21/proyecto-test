@@ -3,6 +3,12 @@
  git clone [linkurkRepo]
  // clonar una rama
  git checkout -b "nombreRama"
+ // instalar dependencias
+
+ npm install
+
+ // levantar el proyecto
+ npm run dev
  
 # React + TypeScript + Vite
 
