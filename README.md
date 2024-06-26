@@ -1,3 +1,15 @@
+# Comandos Git basicos
+ // clonar un repositorio
+ git clone [linkurkRepo]
+ // clonar una rama
+ git checkout -b "nombreRama"
+ // instalar dependencias
+
+ npm install
+
+ // levantar el proyecto
+ npm run dev
+ 
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
