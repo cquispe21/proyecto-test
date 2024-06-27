@@ -9,7 +9,6 @@ import {useForm} from 'react-hook-form';
 
 function App() {
   const [Api, setApi] = useState([]);
-  const [id, setApiId] = useState('');
 
   const {register, handleSubmit, formState:{errors}} = useForm();
 
@@ -20,16 +19,7 @@ function App() {
     console.log('fetching data from', Api);
   };
 
-  // const handleSubmit = (e: any) => {
-  //   e.preventDefault();
-  //   if (id) { 
-  //     ApiGetId(parseInt(id));
-  //   } else {
-  //     ApiGet(); 
-  //   }
-  // };
-
-  const onSubmit = handleSubmit((data, e) =>{
+  const onSubmit = handleSubmit((data, e:any) =>{
     e.preventDefault();
     if (data.id) { 
       ApiGetId(parseInt(data.id));
@@ -42,7 +32,7 @@ function App() {
     const url = await axios.get(`https://rickandmortyapi.com/api/character/${id}`);
     console.log('fetching data from', url.data);
     
-    setApi([url.data]); 
+    setApi([url.data] as any); 
   };
 
   useEffect(() => {
@@ -59,10 +49,7 @@ function App() {
             type="text"
             id='id_personaje'
             placeholder="Escribe un Id de personaje"
-            {...register('id', {required: {
-              value:true, 
-              message:'Campo requerido'
-            }, 
+            {...register('id', {
               pattern: {
                 value: /^[0-9]*$/,
                 message: 'Solo se permiten números'
@@ -76,19 +63,20 @@ function App() {
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Consultar</button>
         </form>
       </div>
-      
+      <div className="flex flex-wrap py-8 w-full">
       {Api.map((item: any) => (
-        <div className="w-1/4 p-2" key={item.id}>
-          <div className="bg-white rounded-lg shadow-lg">
-            <img src={item.image} alt="" className="rounded-t-lg w-full" />
-            <div className="p-4">
-              <h1 className="text-xl font-bold">{item.name}</h1>
-              <p className="text-sm text-gray-600">{item.species}</p>
-              <p className="text-sm text-gray-600">{item.gender === "Female" ? "Mujer" : "Hombre"}</p>
-            </div>
+      <div className="p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4" key={item.id}>
+        <div className="bg-white rounded-lg shadow-lg">
+          <img src={item.image} alt="" className="rounded-t-lg w-full" />
+          <div className="p-4">
+            <h1 className="text-xl font-bold">{item.name}</h1>
+            <p className="text-sm text-gray-600">{item.species}</p>
+            <p className="text-sm text-gray-600">{item.gender === "Female" ? "Mujer" : "Hombre"}</p>
           </div>
         </div>
-      ))}
+      </div>
+    ))}
+      </div>
     </>
   );
 }
